@@ -1,6 +1,9 @@
 package com.exemple.cerclemoveapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.widget.Button;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
 
+    final Context context = this;
     private Button playButton=null;
     private Button instButton=null;
     private Button quitButton = null;
@@ -39,7 +43,35 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             Intent instruction = new Intent (Menu.this, instructions.class);
             startActivity(instruction);
         }else if (v==quitButton){
-            finish();
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+            // set title
+            alertDialogBuilder.setTitle("Quitter notre magnifique application ? ");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Appuyez sur oui pour quitter ! ")
+                    .setCancelable(false)
+                    .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Non",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+            //finish();
         }
 
     }
