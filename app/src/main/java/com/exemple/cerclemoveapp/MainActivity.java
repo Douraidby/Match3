@@ -1,16 +1,18 @@
 package com.exemple.cerclemoveapp;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
+import android.view.Menu;
 import android.widget.ImageView;
 import android.os.Handler;
 
@@ -20,7 +22,7 @@ import java.util.Vector;
 import static java.lang.Math.floor;
 
 public class MainActivity extends AppCompatActivity {
-
+    private Menu m = null;
     Cercle contina[][];             //conteneur des cercles de la grille
     Cercle cercledown;              //cercle la ou on presse down
     Cercle cercleswiped;            //cercle swiped avec cercledown
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         contina = new Cercle[5][8];
         Point point;
 
@@ -291,5 +292,22 @@ public class MainActivity extends AppCompatActivity {
     public void GererUp(int x,int y){
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        //R.menu.menu est l'id de notre menu
+        inflater.inflate(R.layout.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.quitter){
+            finishAffinity();
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
